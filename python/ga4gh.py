@@ -80,6 +80,7 @@ def search_variants(genotypes, dataset, repo_id, callSetIds=None):
     :param genotypes: dictionary mapping a variant name to a genotype
     :yield: GAVariant
     '''
+    rsid='rs7756992'
     rsids_by_coords = {}
     rsids = set()
     for rsid in genotypes:
@@ -91,10 +92,11 @@ def search_variants(genotypes, dataset, repo_id, callSetIds=None):
         rsids_by_coords['%s:%s-%s'% (chrom, start, end)] = rsid
     variantset_search_resp = search('variantsets', repo_id, datasetIds=[dataset])
     variant_set_ids = [vs['id'] for vs in variantset_search_resp['variantSets']]
+    vsid=variant_set_ids[0]
     # queue to receive search responses
     search_resps = gevent.queue.Queue()
     # dispatch concurrent API calls
-    variant_searches = [
+    '''variant_searches = [
         gevent.spawn(execute_search,
             search_resps,
             'variants',
@@ -105,7 +107,9 @@ def search_variants(genotypes, dataset, repo_id, callSetIds=None):
             repo_id=repo_id)
         for rsid in genotypes 
         for vsid in variant_set_ids
-    ] 
+    ] for vsid in variant_set_ids:
+        for rsid in genotypes:
+            requeat '''
     num_finished = 0
     while num_finished < len(variant_searches):
         resp = search_resps.get()

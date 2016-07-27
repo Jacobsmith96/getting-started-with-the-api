@@ -317,7 +317,8 @@ var renderAll = function() {
 
 var processGenomicData = function() {
 
-    // initialize with default value
+    // initialize with default valuea
+    console.log("init");
     for (var disease in riskSummaryIds) {
         risks[disease] = 1;
         snps[disease] = [];
@@ -327,6 +328,7 @@ var processGenomicData = function() {
         };
     }
     // find genotype that matches our data 
+    console.log("start calc");
     for (var rsid in snpData) {
         var snp = pt.snps[rsid];
         var variant = snpData[rsid];
@@ -346,6 +348,7 @@ var processGenomicData = function() {
             drugAdvice.push(di);
         }
     }
+    console.log("end calc");
     renderAll();
     // add drug advice
     var drugAdviceDisplay = _(drugAdvice).map(createDrugAdvicHtml).join('') || 'No information available';
