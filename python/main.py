@@ -169,7 +169,6 @@ def get_snps(sample_id):
     
     response = {}
     for rsid,variant in variants:
-        print variant
         gts = [variant['referenceBases']]
         gts.extend(variant['alternateBases']) 
         rsidentry = {}
