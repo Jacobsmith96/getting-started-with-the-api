@@ -18,7 +18,13 @@
 sample_id = "{{ sample_id }}";
 </script>
 
-<script src='/static/js/fhir-client.min.js'></script>
+<script src='/static/js/fhir-client.js'></script>
+<script>
+      FHIR.oauth2.authorize({
+        "client_id": "04b91ed1-3cd2-4a0d-b414-5a90603fe231",
+        "scope":  "patient/*.read"
+      });
+</script>
 <!-- note: we take the SMART jQuery object and make it global -->
 <script src='/static/js/jquery-1.7.2.min.js'></script>
 <script src='/static/js/xdate.js'></script>
@@ -425,23 +431,26 @@ sample_id = "{{ sample_id }}";
 
   <div id='column_3' class='grid_6'>
     <div>
-      <div class='section_header' style='width: 48%; float: left' id='A1C_header'> A1C <span class='normal smaller'>goal <span class='medium'>&lt; 7%</span></span></div>
+      <div class='section_header' style='width: 48%; float: left' id='A1C_header'> Radar Graph SNP Breakdown</div>
       <div class='section_header' style='width: 48%; float: right; text-align: left;' id='GenomicsVisualization'> Genomic Visualization </div>
       <div class='clear'></div>
 
-      <div style='height: 100px; width:49%; float: left;'>
-        <div id='a1c_graph'></div>
+      <div style='height: 200px; width:24%; float: left;'>
+        <div id='type_1'></div>
+      </div>
+      <div style='height: 200px; width:24%; float: left;'>
+        <div id='type_2'></div>
       </div>
 
       <div style='width: 48%; float: right; text-align: center; margin-top: 0px; margin-left: auto; margin-right: auto;'>
-        <div id='genomics_graph' style='width: 100%; height: 100px; margin: 0 auto'>
+        <div id='genomics_graph' style='width: 100%; height: 400px; margin: 0 auto'>
         </div>
       </div>
     </div>
 
     <div class='clear'></div>
 
-    <div id='reminders_outer'>
+    <!--<div id='reminders_outer'>
       <div class='section_header'>Test Reminders</div>
       <div id='reminders'></div>
     </div>
@@ -459,7 +468,7 @@ sample_id = "{{ sample_id }}";
 
       <div id='medications'></div>
     </div>
-
+    -->
     <div id='genomics_outer'><!-- begin of genomics summary -->
       <div class='section_header' id='Genomics_Data'>Genomics Data</div>
 
@@ -474,7 +483,7 @@ sample_id = "{{ sample_id }}";
         <div id='DM2Risk' style='width: 60%; float: left; text-align: left;'></div> <br>
       </div>
 
-      <div>
+      <!--<div>
         <div style='width: 40%; float: left; text-align: left;' id='Hypertension'><b> Hypertension: </b> </div>
         <div id='HYPRisk' style='width: 60%; float: left; text-align: left;'></div> <br>
       </div>
@@ -482,7 +491,7 @@ sample_id = "{{ sample_id }}";
       <div class='gray'> 
         <div style='width: 40%; float: left; text-align: left;' id='Coronary_Heart_Disease'><b> Coronary Heart Disease: </b> </div>
         <div id='CHDRisk' style='width: 60%; float: left; text-align: left;'></div> <br> 
-      </div>
+      </div>-->
 
     </div><!-- end of genomics summary -->
   </div>
@@ -819,11 +828,11 @@ sample_id = "{{ sample_id }}";
       <div class='section_subheader' style='margin-top: 20px' id='type2'> Type 2 Diabetes  </div>
       <div id='DM2Span'></div>
 
-      <div class='section_subheader' style='margin-top: 20px' id='hyper_label'> Hypertension  </div>
+     <!-- <div class='section_subheader' style='margin-top: 20px' id='hyper_label'> Hypertension  </div>
       <div id='HYPSpan'></div>
 
       <div class='section_subheader' style='margin-top: 20px' id='CoronaryHeartDisease'> Coronary Heart Disease  </div>
-      <div id='CHDSpan'></div>
+      <div id='CHDSpan'></div>-->
 
     </div>
 

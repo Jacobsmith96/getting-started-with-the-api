@@ -180,12 +180,14 @@ def get_snps(sample_id):
                 continue
             callentry=[gts[i] for i in call['genotype']]
         rsidentry['calls']=callentry
-        rsidentry['start']=''
-        rsidentry['end']=''
+        rsidentry['start']=variant['start']
+        rsidentry['end']=variant['end']
         response[rsid]=rsidentry
+    finalResponse = {}
+    finalResponse[sample]=response
 
     with open('data.txt', 'w') as outfile:
-        json.dump(response, outfile)
+        json.dump(finalResponse, outfile)
 
     return jsonify(snps)
 

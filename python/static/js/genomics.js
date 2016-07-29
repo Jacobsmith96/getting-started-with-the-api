@@ -14,41 +14,30 @@ var okg_url = '/frequencies'
 var riskSummaryIds = {
     "Type 1 Diabetes": "DM1Risk",
     "Type 2 Diabetes": "DM2Risk",
-    "Hypertension": "HYPRisk",
-    "Coronary Heart Disease": "CHDRisk"
 }
 
 var riskListIds = {
     "Type 1 Diabetes": "DM1Span",
     "Type 2 Diabetes": "DM2Span",
-    "Hypertension": "HYPSpan",
-    "Coronary Heart Disease": "CHDSpan"
 }
-
 var riskRadarIds = {
     "Type 1 Diabetes": "radar_graph1",
     "Type 2 Diabetes": "radar_graph2",
-    "Hypertension": "radar_graph3",
-    "Coronary Heart Disease": "radar_graph4"
 }
 
 var acronyms = {
     "DM1": "Type 1 Diabetes",
-    "DM2": "Type 2 Diabetes",
-    "HYP": "Hypertension",
-    "CHD": "Coronary Heart Disease"
+    "DM2": "Type 2 Diabetes", 
 }
 
 var diseaseColors = {
-    "Type 1 Diabetes": '#89A54E',
+    "Type 1 Diabetes": '#2EA6F4',
     "Type 2 Diabetes": '#AA4643',
-    "Hypertension": '#89A54E',
-    "Coronary Heart Disease": '#80699B' 
 }
 
-var renderRadarGraph = function(snpsByDisease, disease) { 
+var renderRadarGraph = function(snpsByDisease, disease, renderLoc) { 
     var snps = snpsByDisease[disease];
-    var renderTo = riskRadarIds[disease];
+    var renderTo = renderLoc;
     $('#'+renderTo).empty();
     var opt = { 
         chart: {
@@ -150,9 +139,7 @@ var renderColumnGraph = function(risks, topSNPs, renderTo) {
                    categories: categories 
                },
         yAxis: {
-                   labels: {
-                               enabled: false
-                           },
+                    min:0,
                    title: {
                               text: ''
                           }
@@ -297,6 +284,10 @@ var createRiskHtml = function(risk) {
 var renderAll = function() {
     $('#population').text('[Freq/'+pop_id+']');
     renderColumnGraph(risks, topSNPs, 'genomics_graph');
+    renderRadarGraph(snps, 'Type 1 Diabetes', 'type_1');
+    renderRadarGraph(snps, 'Type 2 Diabetes', 'type_2');
+    
+
     for (var disease in risks) { 
         var totalRisk = createRiskHtml(risks[disease]);
         var totalRiskSpan = $('#'+riskSummaryIds[disease]);
@@ -311,7 +302,6 @@ var renderAll = function() {
             diseaseSpan.append(visual); 
         });
         diseaseSpan.append("<div style='float: right; text-align: right; margin-right: 10px;'><b> Total Relative Risk: "+totalRisk+"</b></div>");
-        renderRadarGraph(snps, disease);
     } 
 };
 
